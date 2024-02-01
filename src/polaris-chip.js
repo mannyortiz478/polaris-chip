@@ -29,7 +29,8 @@ export class PolarisChip extends LitElement {
     super();
     // a variable on this object called title
     this.title = 'news record';
-    this.link = "#";
+    this.image =
+      this.link = "#";
   }
 
   // CSS styles are scoped JUST to this element. This uses a technology called

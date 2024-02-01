@@ -102,7 +102,7 @@ button:hover {
 
 img {
   text-align: center;
-  width: 200px
+  width: 200px;
 }
 
 h1 {
@@ -123,7 +123,12 @@ p {
 }
 
 .details-btn {
-  color: red;
+  background-color: green;
+  color: white;
+  font-size: 16px;
+  border: 2px solid yellow;
+  border-radius: 12%;
+  padding: 8px;
 }
 
 @media screen and (max-width: 800px) and (min-width: 500px){ .btn { display: none; } }
@@ -132,6 +137,13 @@ p {
 
   render() {
     return html`
+    <div class="control-wrapper">
+    <button class="duplicate">Clone Card</button>
+    <button id="changetitle">Change Title</button>
+    <button id="changeimage">Change Image</button>
+    <button id="delete-card">Delete Card</button>
+    <button id="bg-change" class="change-bg">Change Background</button>
+  </div>
     <div id="cardlist">
     <div class="card">
       <h1 class="card-title">${this.title}</h1>
