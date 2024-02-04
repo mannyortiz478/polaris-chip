@@ -137,13 +137,6 @@ p {
 
   render() {
     return html`
-    <div class="control-wrapper">
-    <button class="duplicate">Clone Card</button>
-    <button id="changetitle">Change Title</button>
-    <button id="changeimage">Change Image</button>
-    <button id="delete-card">Delete Card</button>
-    <button id="bg-change" class="change-bg">Change Background</button>
-  </div>
     <div id="cardlist">
     <div class="card">
       <h1 class="card-title">${this.title}</h1>
