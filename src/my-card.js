@@ -17,6 +17,7 @@ export class MyCard extends LitElement {
     this.link = "#"
     this.image = "";
     this.paragraph = "";
+    this.color = "#42A5F5";
   }
 
   static get styles() {
@@ -37,59 +38,9 @@ export class MyCard extends LitElement {
 }
 
 
-#cardlist {
+.card-list {
   display: flex;
 }
-
-.duplicate {
-  background-color: green;
-  color: white;
-  font-size: 16px;
-  border-radius: 12%;
-  padding: 8px;
-}
-
-#changetitle {
-  background-color: grey;
-  color: white;
-  font-size: 16px;
-  border-radius: 12%;
-  padding: 8px;
-}
-
-#changeimage {
-  background-color: black;
-  color: white;
-  font-size: 16px;
-  border-radius: 12%;
-  padding: 8px;
-}
-#change {
-  background-color: green;
-  color: white;
-  font-size: 16px;
-  border-radius: 12%;
-  padding: 8px;
-}
-#delete-card {
-  background-color: red;
-  color: white;
-  font-size: 16px;
-  border-radius: 12%;
-  padding: 8px;
-}
-#bg-change {
-  background-color: purple;
-  color: white;
-  font-size: 16px;
-  border-radius: 10%;
-  padding: 8px;
-}
-
-button:hover {
-  border: 3px solid yellow;
-}
-
 .card {
   background-color: #42A5F5;
   text-align: center;
@@ -138,7 +89,7 @@ p {
   render() {
     return html`
     <div id="cardlist">
-    <div class="card">
+    <div class="card" style="background-color: ${this.color}">
       <h1 class="card-title">${this.title}</h1>
       <img class="card-image" src="${this.image}">
     <div class="card-details">
@@ -156,7 +107,7 @@ p {
       link: { type: String },
       image: { type: String },
       paragraph: { type: String },
-
+      color: { type: String },
     };
   }
 }

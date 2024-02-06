@@ -17,6 +17,50 @@
       background-color: #ededed;
     }
 
+    .duplicate {
+      background-color: green;
+      color: white;
+      font-size: 16px;
+      border-radius: 12%;
+      padding: 8px;
+    }
+
+    .changetitle {
+      background-color: grey;
+      color: white;
+      font-size: 16px;
+      border-radius: 12%;
+      padding: 8px;
+    }
+
+    .changeimage {
+      background-color: black;
+      color: white;
+      font-size: 16px;
+      border-radius: 12%;
+      padding: 8px;
+    }
+
+    .delete-card {
+      background-color: red;
+      color: white;
+      font-size: 16px;
+      border-radius: 12%;
+      padding: 8px;
+    }
+
+    .change-bg {
+      background-color: purple;
+      color: white;
+      font-size: 16px;
+      border-radius: 10%;
+      padding: 8px;
+    }
+
+    button:hover {
+      border: 3px solid yellow;
+    }
+
     polaris-chip {
       margin: 16px;
       display: block;
@@ -38,32 +82,107 @@
   <h1>my-card</h1>
   <h1 class=title>Card Changing App</h1>
   <h2>Control Panel</h2>
+  <div class="control-wrapper">
+    <button class="duplicate">Clone Card</button>
+    <button class="changetitle">Change Title</button>
+    <button class="changeimage">Change Image</button>
+    <button class="delete-card">Delete Card</button>
+    <button class="change-bg">Change Background</button>
+  </div>
 
-  <my-card title="My Panda" link="https://psu.edu"
-    image="https://th.bing.com/th/id/R.7e3f01aa477d79e0d141324caf862723?rik=bWirO3grihLIsw&pid=ImgRaw&r=0"
-    paragraph="This is just a really cool panda that is staring at you smiling. His name is Robert Downey Jr. He is from Brooklyn New York. He likes pizza with a coke. His favorite bodega is the one on Franklin Avenue. If you are having a bad day just look at the panda and he will make you happy"></my-card>
+  <div class="card-list">
+    <my-card title="My Panda" link="https://psu.edu"
+      image="https://th.bing.com/th/id/R.7e3f01aa477d79e0d141324caf862723?rik=bWirO3grihLIsw&pid=ImgRaw&r=0"
+      paragraph="This is just a really cool panda that is staring at you smiling. His name is Robert Downey Jr. He is from Brooklyn New York. He likes pizza with a coke. His favorite bodega is the one on Franklin Avenue. If you are having a bad day just look at the panda and he will make you happy"></my-card>
 
-  <my-card title="Jack Reacher" link="https://psu.edu"
-    image="https://th.bing.com/th/id/OIP.YmepkoA70z00vmwjeDa9CgHaFj?rs=1&pid=ImgDetMain"
-    paragraph="This is Jack Reacher is a former major in the United States Army Military Police Corps who roams the United States taking odd jobs and investigating suspicious and dangerous situations. Here are some random facts about Jack Reacher"></my-card>
+    <my-card title="Jack Reacher" link="https://psu.edu"
+      image="https://th.bing.com/th/id/OIP.YmepkoA70z00vmwjeDa9CgHaFj?rs=1&pid=ImgDetMain"
+      paragraph="This is Jack Reacher is a former major in the United States Army Military Police Corps who roams the United States taking odd jobs and investigating suspicious and dangerous situations. Here are some random facts about Jack Reacher"></my-card>
 
-  <my-card title="Ted" link="https://psu.edu" image="https://images5.alphacoders.com/320/320314.jpg"
-    paragraph="Ted is a teddy bear that came to life, lives in Massachusetts. He is know for his jokes and smoking pot with John Bennett"></my-card>
+    <my-card title="Ted" link="https://psu.edu" image="https://images5.alphacoders.com/320/320314.jpg"
+      paragraph="Ted is a teddy bear that came to life, lives in Massachusetts. He is know for his jokes and smoking pot with John Bennett"></my-card>
 
-  <my-card title="Peter Parker" link="https://psu.edu"
-    image="https://i.pinimg.com/originals/b4/ae/c2/b4aec2452f60e8bb59265fd37e298f4f.jpg"
-    paragraph="As a high school student living in Queens, New York, Parker gains his superhuman abilities after being bitten by a radioactive spider, leading him to use his newfound powers to fight crime and protect the city. "></my-card>
+    <my-card title="Peter Parker" link="https://psu.edu"
+      image="https://i.pinimg.com/originals/b4/ae/c2/b4aec2452f60e8bb59265fd37e298f4f.jpg"
+      paragraph="As a high school student living in Queens, New York, Parker gains his superhuman abilities after being bitten by a radioactive spider, leading him to use his newfound powers to fight crime and protect the city. "></my-card>
 
-  <my-card title="Tom Cruise" link="https://psu.edu"
-    image="https://th.bing.com/th/id/R.6f95d0fd6da9dfdabcd5e7fc3a1b4242?rik=yIu8z%2bhf5A46mA&riu=http%3a%2f%2fcelebrityinsider.org%2fwp-content%2fuploads%2f2019%2f04%2ftom-cruise.jpg&ehk=p0qLC3YZvXfJ3Ky6ljm%2f0ltpasGMFAbOHF7e2Uf%2fiRw%3d&risl=&pid=ImgRaw&r=0"
-    paragraph="Known for his intense dedication to his craft and willingness to perform daring stunts, Cruise has garnered numerous awards and nominations throughout his career."></my-card>
+    <my-card title="Tom Cruise" link="https://psu.edu"
+      image="https://th.bing.com/th/id/R.6f95d0fd6da9dfdabcd5e7fc3a1b4242?rik=yIu8z%2bhf5A46mA&riu=http%3a%2f%2fcelebrityinsider.org%2fwp-content%2fuploads%2f2019%2f04%2ftom-cruise.jpg&ehk=p0qLC3YZvXfJ3Ky6ljm%2f0ltpasGMFAbOHF7e2Uf%2fiRw%3d&risl=&pid=ImgRaw&r=0"
+      paragraph="Known for his intense dedication to his craft and willingness to perform daring stunts, Cruise has garnered numerous awards and nominations throughout his career."></my-card>
 
-
-
+  </div>
 
   <!-- this is what is bringing in the definition for this tag -->
   <script type="module" src="./src/polaris-chip.js"></script>
   <script type="module" src="./src/my-card.js"></script>
+
+  <script>
+    document.querySelector('.duplicate').addEventListener('click', function (event) {
+      if (document.querySelectorAll('my-card').length < 10) {
+        const newCard = document.querySelector('my-card').cloneNode(true);
+        document.querySelector('.card-list').appendChild(newCard);
+        //.card-list
+      }
+    });
+
+    document.querySelector('.changetitle').addEventListener('click', function (e) {
+      document.querySelector('my-card').title = "Ted!!";
+    });
+
+    document.querySelector('.changeimage').addEventListener('click', function (e) {
+      document.querySelector('my-card').image = "https://th.bing.com/th/id/OIP.OWVTHOxkxYI4EuSSsJwnZwHaEL?rs=1&pid=ImgDetMain";
+    });
+
+    document.querySelector('.change-bg').addEventListener('click', function (e) {
+      const card = document.querySelector('my-card');
+      if (card.color == "#42A5F5") {
+        card.color = "grey";
+      }
+      else if (card.color == "grey") {
+        card.color = "#42A5F5";
+      }
+
+    });
+
+    //Deleting the last card
+    document.querySelector('.delete-card').addEventListener('click', function (e) {
+      const cards = document.querySelectorAll('my-card');
+      const lastCard = cards[cards.length - 1];
+
+      if (cards.length !== 1) {
+        lastCard.remove();
+      }
+    });
+
+
+    document.querySelector('#bg-change').addEventListener('click', function (e) {
+      const link = document.querySelector('.card');
+      if (link.classList.contains('change-bg')) {
+        link.classList.remove('change-bg');
+      }
+      else {
+        link.classList.add('change-bg');
+      }
+    });
+
+    document.querySelector('.change-bg').addEventListener('click', function (e) {
+      // Selecting all 'my-card' elements
+      const myCards = document.querySelectorAll('my-card');
+      if (my - card.color)
+
+
+        myCards.forEach(myCard => {
+          // Accessing shadow DOM
+          const shadowRoot = myCard.shadowRoot;
+          // Selecting all '.card' elements inside shadow DOM
+          const cards = shadowRoot.querySelectorAll('.card');
+
+          cards.forEach(card => {
+            card.classList.toggle('change-color');
+          });
+        });
+    });
+  </script>
 </body>
 
 </html>
