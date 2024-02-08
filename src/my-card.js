@@ -18,13 +18,21 @@ export class MyCard extends LitElement {
     this.image = "";
     this.paragraph = "";
     this.color = "#42A5F5";
+    this.fancy = false;
   }
 
   static get styles() {
     return css`
-      :host {
+    :host {
+      display: block
+    }
+      :host([fancy]) .card {
         display: block;
-      }
+        background-color: pink;
+        border: 2px solid fuchsia;
+        box-shadow: 10px 5px 5px red;
+        margin: 10px;
+    }
       a {
   text-decoration: none;
 }
@@ -68,7 +76,7 @@ h1 {
   text-align: center;
 }
 
-p {
+slot {
   color: white;
   font-size: 15px;
 }
@@ -80,11 +88,42 @@ p {
   border: 2px solid yellow;
   border-radius: 12%;
   padding: 8px;
+  margin-top: 7px;
 }
+details summary {
+    text-align: center;
+    color: red;
+    font-size: 20px;
+    padding: 8px 0;
+  }
+
+  details[open] summary {
+    font-weight: bold;
+  }
+  
+  details div {
+    border: 2px solid pink;
+    text-align: left;
+    padding: 8px;
+    height: 70px;
+    overflow: auto;
+  }
 
 @media screen and (max-width: 800px) and (min-width: 500px){ .btn { display: none; } }
     `;
   }
+
+  // put this anywhere on the MyCard class; just above render() is probably good
+  openChanged(e) {
+    console.log(e.newState);
+    if (e.newState === "open") {
+      this.fancy = true;
+    }
+    else {
+      this.fancy = false;
+    }
+  }
+
 
   render() {
     return html`
@@ -93,7 +132,13 @@ p {
       <h1 class="card-title">${this.title}</h1>
       <img class="card-image" src="${this.image}">
     <div class="card-details">
-      <p>${this.paragraph}</p>
+      <details ?open="${this.fancy}" @toggle="${this.openChanged}">
+        <div>
+          <summary>Desciption</summary>
+          <slot>${this.paragraph}</slot>
+        </div>
+      </details>
+      <!--<p>${this.paragraph}</p>-->
       <a href="${this.link}"><button class="details-btn">Details</button></a>
       </div>
     </div>
@@ -108,6 +153,7 @@ p {
       image: { type: String },
       paragraph: { type: String },
       color: { type: String },
+      fancy: { type: Boolean, reflect: true },
     };
   }
 }
