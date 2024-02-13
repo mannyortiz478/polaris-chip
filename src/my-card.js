@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import "@lrnwebcomponents/meme-maker/meme-maker.js";
 
 /**
  * Now it's your turn. Here's what we need to try and do
@@ -129,8 +130,10 @@ details summary {
     return html`
     <div id="cardlist">
     <div class="card" style="background-color: ${this.color}">
-      <h1 class="card-title">${this.title}</h1>
-      <img class="card-image" src="${this.image}">
+      <!--<h1 class="card-title">${this.title}</h1>-->
+      <!--<img class="card-image" src="${this.image}">>-->
+      <meme-maker alt="An image of some kind" image-url="${this.image}" top-text="${this.title}" bottom-text="is a human">
+</meme-maker>
     <div class="card-details">
       <details ?open="${this.fancy}" @toggle="${this.openChanged}">
         <div>
