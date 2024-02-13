@@ -30,9 +30,13 @@ export class MyCard extends LitElement {
       :host([fancy]) .card {
         display: block;
         background-color: pink;
-        border: 2px solid fuchsia;
-        box-shadow: 10px 5px 5px red;
+        border: 2px solid blue;
+        box-shadow: 10px 5px 5px #2E67F8;
         margin: 10px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        transition: background-color 0.3s ease, transform 0.3s ease;
+
+
     }
       a {
   text-decoration: none;
