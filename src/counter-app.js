@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-
+import "@lrnwebcomponents/multiple-choice/lib/confetti-container.js";
 /**
  * Now it's your turn. Here's what we need to try and do
  * 1. 
@@ -31,45 +31,58 @@ export class MyCounter extends LitElement {
 
 .counter-frame {
     background-color: #3F7FBF;
-    width: 175px;
+    width: 465px;
     border: black;
     border: 3px solid green;
-    margin: 30px;
-    padding: 10px;
+    border-radius: 24px;
+    margin: 40px auto;
+    padding: 50px;
+    text-align: center;
 }
 
 .number-display {
     background-color: white;
-    width: 125px;
-    color: var(--counter-color, grey);
+    width: 350px;
+    color: var(--counter-color, black);
     text-align: center;
-    font-size: 24px;
+    font-size: 96px;
     border: 3px solid black;
-    margin: 10px;
-    padding: 5px;
+    border-radius: 24px;
+    margin: 20px auto;
+    padding: 24px;
 }
 
 .increase-btn {
-    background-color: green;
+    background-color: #007f5c;
     color: white;
-    font-size: 16px;
+    font-size: 24px;
     border: 2px solid white;
-    border-radius: 12%;
-    padding: 2px;
-    margin-left: 7px;
+    border-radius: 48px;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
 }
 
 .decrease-btn {
-    background-color: red;
+    background-color: #e8000d;
     color: white;
-    font-size: 16px;
+    font-size: 24px;
     border: 2px solid white;
-    border-radius: 12%;
-    padding: 2px;
-    margin-right: 7px;
+    border-radius: 48px;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
 }
 
-.increase-btn:hover, .decrease-btn:hover {
+.increase-btn:hover {
+    background-color: #3cd070;
+} 
+
+.decrease-btn:hover {
+    background-color: #ff0800;
+}
+
+.increase-btn:focus, .decrease-btn:focus {
     border: 2.5px solid yellow;
 }
 
@@ -77,7 +90,6 @@ export class MyCounter extends LitElement {
     `;
     }
 
-    // put this anywhere on the MyCard class; just above render() is probably good
     openChanged(e) {
         console.log(e.newState);
         if (e.newState === "open") {
@@ -96,6 +108,12 @@ export class MyCounter extends LitElement {
         else if (this.number == 21) {
             this.color = "#FF4500"
         }
+        else if (this.number == this.min) {
+            this.color = "pink";
+        }
+        else if (this.number == this.max) {
+            this.color = "pink"
+        }
         else {
             this.color = "grey"
         }
@@ -107,7 +125,13 @@ export class MyCounter extends LitElement {
             this.color = "#FFD700"
         }
         else if (this.number == 21) {
-            this.color = "#FF4500"
+            this.color = "#FF4500";
+        }
+        else if (this.number == this.min) {
+            this.color = "pink";
+        }
+        else if (this.number == this.max) {
+            this.color = "pink"
         }
         else {
             this.color = "grey";
@@ -118,14 +142,15 @@ export class MyCounter extends LitElement {
     render() {
         return html`
         <div class="counter-frame">
+        <confetti-container id="confetti">
             <div class="number-display" style="--counter-color: ${this.color}">
                 ${this.number}
             </div>
+        </confetti-container>
             <div class="buttons">
-            <button class="increase-btn" @click="${this.increase}">Increase</button>
-            <button class="decrease-btn" @click="${this.decrease}">Decrease</button>
+            <button class="increase-btn" @click="${this.increase}" ?disabled="${this.max === this.number}">Increase</button>
+            <button class="decrease-btn" @click="${this.decrease}" ?disabled="${this.min === this.number}">Decrease</button>
             </div>
-
         </div>
   `;
     }
@@ -139,6 +164,31 @@ export class MyCounter extends LitElement {
             color: { type: String },
             fancy: { type: Boolean, reflect: true },
         };
+    }
+    updated(changedProperties) {
+        if (changedProperties.has('number') && this.number == 21) {
+            this.makeItRain();
+        }
+    }
+
+    makeItRain() {
+        // this is called a dynamic import. It means it won't import the code for confetti until this method is called
+        // the .then() syntax after is because dynamic imports return a Promise object. Meaning the then() code
+        // will only run AFTER the code is imported and available to us
+        import("@lrnwebcomponents/multiple-choice/lib/confetti-container.js").then(
+            (module) => {
+                // This is a minor timing 'hack'. We know the code library above will import prior to this running
+                // The "set timeout 0" means "wait 1 microtask and run it on the next cycle.
+                // this "hack" ensures the element has had time to process in the DOM so that when we set popped
+                // it's listening for changes so it can react
+                setTimeout(() => {
+                    // forcibly set the poppped attribute on something with id confetti
+                    // while I've said in general NOT to do this, the confetti container element will reset this
+                    // after the animation runs so it's a simple way to generate the effect over and over again
+                    this.shadowRoot.querySelector("#confetti").setAttribute("popped", "");
+                }, 0);
+            }
+        );
     }
 }
 
