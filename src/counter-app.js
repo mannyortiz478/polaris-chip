@@ -33,7 +33,7 @@ export class MyCounter extends LitElement {
     background-color: #3F7FBF;
     width: 465px;
     border: black;
-    border: 3px solid green;
+    border: 3px solid #FFD700;
     border-radius: 24px;
     margin: 40px auto;
     padding: 50px;
