@@ -16,7 +16,7 @@ export class MyCounter extends LitElement {
         this.number = 0;
         this.counter = "1"
         this.min = "0"
-        this.max = "50"
+        this.max = "100"
         this.color = "";
     }
 
@@ -31,7 +31,7 @@ export class MyCounter extends LitElement {
 
 .counter-frame {
     background-color: #3F7FBF;
-    width: 465px;
+    width: 475px;
     border: black;
     border: 3px solid #FFD700;
     border-radius: 24px;
@@ -55,7 +55,7 @@ export class MyCounter extends LitElement {
 .increase-btn {
     background-color: #007f5c;
     color: white;
-    font-size: 24px;
+    font-size: 48px;
     border: 2px solid white;
     border-radius: 48px;
     padding: 10px 20px;
@@ -66,7 +66,7 @@ export class MyCounter extends LitElement {
 .decrease-btn {
     background-color: #e8000d;
     color: white;
-    font-size: 24px;
+    font-size: 48px;
     border: 2px solid white;
     border-radius: 48px;
     padding: 10px 20px;
@@ -148,8 +148,8 @@ export class MyCounter extends LitElement {
             </div>
         </confetti-container>
             <div class="buttons">
-            <button class="increase-btn" @click="${this.increase}" ?disabled="${this.max === this.number}">Increase</button>
-            <button class="decrease-btn" @click="${this.decrease}" ?disabled="${this.min === this.number}">Decrease</button>
+            <button class="increase-btn" @click="${this.increase}" ?disabled="${this.max === this.number ? true : false}">+</button>
+            <button class="decrease-btn" @click="${this.decrease}" ?disabled="${this.min === this.number ? true : false}">-</button>
             </div>
         </div>
   `;
@@ -158,9 +158,8 @@ export class MyCounter extends LitElement {
     static get properties() {
         return {
             number: { type: Number },
-            counter: { type: String },
-            min: { type: String },
-            max: { type: String },
+            min: { type: Number },
+            max: { type: Number },
             color: { type: String },
             fancy: { type: Boolean, reflect: true },
         };
