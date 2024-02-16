@@ -148,8 +148,8 @@ export class MyCounter extends LitElement {
             </div>
         </confetti-container>
             <div class="buttons">
-            <button class="increase-btn" @click="${this.increase}" ?disabled="${this.max === this.number ? true : false}">+</button>
-            <button class="decrease-btn" @click="${this.decrease}" ?disabled="${this.min === this.number ? true : false}">-</button>
+            <button class="increase-btn" @click="${this.increase}" ?disabled="${this.max === this.number}">+</button>
+            <button class="decrease-btn" @click="${this.decrease}" ?disabled="${this.min === this.number}">-</button>
             </div>
         </div>
   `;
