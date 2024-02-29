@@ -12,24 +12,68 @@ export class MyAlert extends LitElement {
 
     constructor() {
         super();
-        this.message = "";
-        this.month = "November";
-        this.day = 9;
-        this.year = 2024;
+        this.date = "December 20, 2023";
         this.isOpen = false;
+        this.status = "alert";
     }
 
     static get styles() {
         return css`
     :host {
       display: block;
+        --notice-text-color: black;
+        --notice-bg-color: #007bff; /* Default notice background color */
+        --warning-text-color: black;
+        --warning-bg-color: #ffd100; /* Default warning background color */
+        --alert-text-color: white;
+        --alert-bg-color: red; /* Default alert background color */
     }
-      a {
-  text-decoration: none;
-}
+    :host([status="notice"]) .alert-container {
+        background-color: var(--notice-bg-color);
+        color: var(--notice-text-color);
+        width: auto;
+        border: black;
+        display: flex;
+        justify-content: center;
+        border: 1px solid;
+        border-radius: 12px;
+        margin: auto;
+        padding: 1px;
+        text-align: center;
+    }
 
+    :host([status="warning"]) .alert-container {
+        background-color: var(--warning-bg-color);
+        color: var(--warning-text-color);
+        width: auto;
+        border: black;
+        display: flex;
+        justify-content: center;
+        border: 1px solid;
+        border-radius: 12px;
+        margin: auto;
+        padding: 1px;
+        text-align: center;
+    }
+
+    :host([status="alert"]) .alert-container {
+        background-color: var(--alert-bg-color);
+        color: var(--alert-text-color);
+        width: auto;
+        border: black;
+        display: flex;
+        justify-content: center;
+        border: 1px solid;
+        border-radius: 12px;
+        margin: auto;
+        padding: 1px;
+        text-align: center;
+    }
+
+
+//#ffd100
 .alert-container {
-    background-color: #ffd100;
+    background-color: var(--notice-bg-color);
     width: auto;
     border: black;
     display: flex;
@@ -42,7 +86,7 @@ export class MyAlert extends LitElement {
 }
 
 .hidden-alert-container {
-    background-color: #ffd100;
+    background-color: var(--notice-bg-color);
     width: auto;
     border: black;
     display: flex;
@@ -81,9 +125,9 @@ export class MyAlert extends LitElement {
     //letter-spacing: 0.03rem;
     text-align: right
 }
-.view-btn {
+.open-btn {
     background-color: transparent;
-    color: white;
+    color: black;
     border: none;
     cursor: pointer;
     font-family: inherit;
@@ -95,12 +139,12 @@ export class MyAlert extends LitElement {
     display: inline;  
 }
 .message-wrap {
-    padding: 15px;
+    padding: 10px;
     height: 100%;
     width: 75%;
 }
 .alert-message { 
-    color: black;
+    color: var(--notice-text-color);
     font-size: 1.125rem;
     font-style: italic;
     line-height: 1.25rem;
@@ -109,15 +153,16 @@ export class MyAlert extends LitElement {
     letter-spacing: 0.03rem;
 }
 
-.hidden-message, .small-message {
-    color: black;
-    font-size: 2rem;
+.hidden-message {
+    color: var(--notice-text-color);
+    font-size: 1.7rem;
     font-style: italic;
     line-height: 1.25rem;
     display: inline;
     font-weight: 700;
     letter-spacing: 0.03rem; 
 }
+
 #sticky {
     position: fixed;
     top: 0;
@@ -139,29 +184,40 @@ export class MyAlert extends LitElement {
             this.fancy = false;
         }
     }
+
+    toggleAlert() {
+        this.isOpen = !this.isOpen;
+        if (this.isOpen) {
+            localStorage.removeItem('alertIsOpen'); // Remove from localStorage if alert is open
+        } else {
+            localStorage.setItem('alertIsOpen', 'false'); // Store status in localStorage if alert is closed
+        }
+    }
+
+
     hiddenAlert() {
         this.isOpen = false;
+        this.shadowRoot.querySelector('.open-btn').focus()
     }
 
     openAlert() {
         this.isOpen = true;
+        this.shadowRoot.querySelector('.close-btn').focus();
     }
 
     hiddenAlertContent() {
         return html`
         <div class="hidden-alert-container" id="sticky">
             <div class="date">
-                <h3>${this.month} ${this.day}, ${this.year}</h3>
+                <h3>${this.date}</h3>
             </div>
             <div class="message-wrap">
                 <div class="small-message">
+                    <button class="open-btn" @click="${this.toggleAlert}" tabindex=0>
                 <svg height=50px width=65px xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>alert-circle-outline</title><path d="M11,15H13V17H11V15M11,7H13V13H11V7M12,2C6.47,2 2,6.5 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20Z" /></svg>          
                     <p class="hidden-message">There is an alert!!</p>
+                    </button>
                 </div>
-                <div class="maximize-alert">
-                <span @click="${this.openAlert}">
-                    <button class="view-btn">View</button>
-                </span>
             </div> 
             </div>
         </div>
@@ -172,17 +228,17 @@ export class MyAlert extends LitElement {
         return html`
         <div class="alert-container" id="sticky">
             <div class="date">
-                <h3>${this.month} ${this.day}, ${this.year}</h3>
+                <h3>${this.date}</h3>
             </div>
             <svg height=50px width=65px xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>alert-circle-outline</title><path d="M11,15H13V17H11V15M11,7H13V13H11V7M12,2C6.47,2 2,6.5 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20Z" /></svg>          
             <div class="message-wrap">
                 <div class="alert-message">
-                    <p>${this.message}</p>
+                    <slot></slot>
                 </div>
             </div>
             <div class="minimize-alert">
-                <span @click="${this.hiddenAlert}">
-                    <button class="close-btn">X Close</button>
+                <span>
+                    <button class="close-btn"  @click="${this.toggleAlert}">X Close</button>
                 </span>
             </div> 
 
@@ -201,23 +257,12 @@ export class MyAlert extends LitElement {
     static get properties() {
         return {
             isOpen: { type: String },
-            message: { type: String },
-            month: { type: String },
-            day: { type: Number },
-            year: { type: Number },
+            date: { type: String },
             alertColor: { type: String },
             sticky: { type: String },
-            status: { tyep: Boolean },
+            status: { tyep: String },
             fancy: { type: Boolean, reflect: true },
         };
     }
 }
-
-// globalThis.customElements.define(MyAlert.tag, MyAlert);
-// updated(changedProperties){
-//     if (changedProperties.has('open')) {
-
-//     }
-// }
-
 globalThis.customElements.define(MyAlert.tag, MyAlert);

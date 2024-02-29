@@ -70,8 +70,12 @@
 </head>
 
 <body>
-  <alert-frame month="December" day="10" year="2024"
-    message="Occaecat laboris incididunt ea labore quis in qui commodo velit cillum et commodo. Dolore consectetur eu eu reprehenderit anim fugiat in nostrud anim magna enim nisi. Mollit est incididunt sint aliqua duis. Deserunt ut velit deserunt fugiat eiusmod. Do incididunt laborum aliqua cupidatat adipisicing fugiat reprehenderit cillum id. Minim minim elit occaecat id velit fugiat ea. Aliqua excepteur ea excepteur cillum esse voluptate non elit laboris laboris esse est sunt incididunt ullamco.">
+  <alert-frame date="December 20, 2023" status="alert">
+    Occaecat laboris incididunt ea labore quis in qui commodo velit cillum et commodo. Dolore consectetur eu eu
+    reprehenderit anim fugiat in nostrud anim magna enim nisi. Mollit est incididunt sint aliqua duis. Deserunt ut velit
+    deserunt fugiat eiusmod. Do incididunt laborum aliqua cupidatat adipisicing fugiat reprehenderit cillum id. Minim
+    minim elit occaecat id velit fugiat ea. Aliqua excepteur ea excepteur cillum esse voluptate non elit laboris laboris
+    esse est sunt incididunt ullamco.
   </alert-frame>
   <h1>polaris-chip</h1>
   <!-- this is going to do whatever the tag's defaults are -->
@@ -159,17 +163,6 @@
 
       if (cards.length !== 1) {
         lastCard.remove();
-      }
-    });
-
-
-    document.querySelector('#bg-change').addEventListener('click', function (e) {
-      const link = document.querySelector('.card');
-      if (link.classList.contains('change-bg')) {
-        link.classList.remove('change-bg');
-      }
-      else {
-        link.classList.add('change-bg');
       }
     });
 
