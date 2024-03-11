@@ -7,26 +7,45 @@ import { LitElement, html, css } from 'lit';
 export class MyAlert extends LitElement {
 
     static get tag() {
-        return 'alert-frame';
+        return 'campus-alert';
     }
 
     constructor() {
         super();
-        this.date = "December 20, 2023";
+        this.date = "";
         this.isOpen = false;
-        this.status = "alert";
+        this.status = "";
+        this.sticky = false;
     }
 
     static get styles() {
         return css`
     :host {
-      display: block;
+        display: flex;
+        --none-text-color: black;
+        --none-bg-color: #ffd100;
+
         --notice-text-color: black;
-        --notice-bg-color: #007bff; /* Default notice background color */
+        --notice-bg-color: #007bff;
+
         --warning-text-color: black;
-        --warning-bg-color: #ffd100; /* Default warning background color */
-        --alert-text-color: white;
-        --alert-bg-color: red; /* Default alert background color */
+        --warning-bg-color: yellow; 
+
+        --alert-text-color: black;
+        --alert-bg-color: red; 
+    }
+    :host([status="none"]) .alert-container {
+        background-color: var(--none-bg-color);
+        color: var(--none-text-color);
+        width: auto;
+        border: black;
+        display: flex;
+        justify-content: center;
+        border: 1px solid;
+        border-radius: 12px;
+        margin: auto;
+        padding: 1px;
+        text-align: center;
     }
     :host([status="notice"]) .alert-container {
         background-color: var(--notice-bg-color);
@@ -73,7 +92,7 @@ export class MyAlert extends LitElement {
 
 //#ffd100
 .alert-container {
-    background-color: var(--notice-bg-color);
+    background-color: var(--none-bg-color);
     width: auto;
     border: black;
     display: flex;
@@ -86,7 +105,7 @@ export class MyAlert extends LitElement {
 }
 
 .hidden-alert-container {
-    background-color: var(--notice-bg-color);
+    background-color: var(--none-bg-color);
     width: auto;
     border: black;
     display: flex;
@@ -144,7 +163,7 @@ export class MyAlert extends LitElement {
     width: 75%;
 }
 .alert-message { 
-    color: var(--notice-text-color);
+    color: var(--none-text-color);
     font-size: 1.125rem;
     font-style: italic;
     line-height: 1.25rem;
@@ -154,7 +173,7 @@ export class MyAlert extends LitElement {
 }
 
 .hidden-message {
-    color: var(--notice-text-color);
+    color: var(--none-text-color);
     font-size: 1.7rem;
     font-style: italic;
     line-height: 1.25rem;
@@ -188,16 +207,20 @@ export class MyAlert extends LitElement {
     toggleAlert() {
         this.isOpen = !this.isOpen;
         if (this.isOpen) {
-            localStorage.removeItem('alertIsOpen'); // Remove from localStorage if alert is open
+            localStorage.removeItem('alertIsOpen');
+            this.classList.add('sticky');
         } else {
-            localStorage.setItem('alertIsOpen', 'false'); // Store status in localStorage if alert is closed
+            localStorage.setItem('alertIsOpen', 'false');
+            this.classList.add('sticky');
         }
     }
 
 
     hiddenAlert() {
-        this.isOpen = false;
-        this.shadowRoot.querySelector('.open-btn').focus()
+        setTimeout(() => {
+            this.isOpen = false;
+            this.shadowRoot.querySelector('.open-btn').focus()
+        }, 0);
     }
 
     openAlert() {
@@ -226,7 +249,7 @@ export class MyAlert extends LitElement {
 
     openAlertContent() {
         return html`
-        <div class="alert-container" id="sticky">
+        <div class="alert-container">
             <div class="date">
                 <h3>${this.date}</h3>
             </div>
@@ -259,10 +282,11 @@ export class MyAlert extends LitElement {
             isOpen: { type: String },
             date: { type: String },
             alertColor: { type: String },
-            sticky: { type: String },
+            sticky: { type: Boolean },
             status: { tyep: String },
             fancy: { type: Boolean, reflect: true },
         };
     }
+
 }
 globalThis.customElements.define(MyAlert.tag, MyAlert);
