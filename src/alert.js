@@ -15,13 +15,12 @@ export class MyAlert extends LitElement {
         this.date = "";
         this.isOpen = false;
         this.status = "";
-        this.sticky = false;
+        this.sticky = true;
     }
 
     static get styles() {
         return css`
     :host {
-        display: flex;
         --none-text-color: black;
         --none-bg-color: #ffd100;
 
@@ -29,7 +28,7 @@ export class MyAlert extends LitElement {
         --notice-bg-color: #007bff;
 
         --warning-text-color: black;
-        --warning-bg-color: yellow; 
+        --warning-bg-color: #FFEF00; 
 
         --alert-text-color: black;
         --alert-bg-color: red; 
@@ -37,6 +36,18 @@ export class MyAlert extends LitElement {
     :host([status="none"]) .alert-container {
         background-color: var(--none-bg-color);
         color: var(--none-text-color);
+        width: auto;
+        border: black;
+        display: flex;
+        justify-content: center;
+        border: 1px solid;
+        border-radius: 12px;
+        margin: auto;
+        padding: 1px;
+        text-align: center;
+    }
+    :host([status="none"]) .hidden-alert-container {
+        background-color: var(--none-bg-color);
         width: auto;
         border: black;
         display: flex;
@@ -60,10 +71,34 @@ export class MyAlert extends LitElement {
         padding: 1px;
         text-align: center;
     }
+    :host([status="notice"]) .hidden-alert-container {
+        background-color: var(--notice-bg-color);
+        width: auto;
+        border: black;
+        display: flex;
+        justify-content: center;
+        border: 1px solid;
+        border-radius: 12px;
+        margin: auto;
+        padding: 1px;
+        text-align: center;
+    }
 
-    :host([status="warning"]) .alert-container {
+    :host([status="warning"]) .alert-container{
         background-color: var(--warning-bg-color);
         color: var(--warning-text-color);
+        width: auto;
+        border: black;
+        display: flex;
+        justify-content: center;
+        border: 1px solid;
+        border-radius: 12px;
+        margin: auto;
+        padding: 1px;
+        text-align: center;
+    }
+    :host([status="warning"]) .hidden-alert-container {
+        background-color: var(--warning-bg-color);
         width: auto;
         border: black;
         display: flex;
@@ -88,6 +123,26 @@ export class MyAlert extends LitElement {
         padding: 1px;
         text-align: center;
     }
+    :host([status="alert"]) .hidden-alert-container {
+        background-color: var(--alert-bg-color);
+        width: auto;
+        border: black;
+        display: flex;
+        justify-content: center;
+        border: 1px solid;
+        border-radius: 12px;
+        margin: auto;
+        padding: 1px;
+        text-align: center;
+    }
+    :host([sticky]) .alert-container,
+    :host([sticky]) .hidden-alert-container {
+        position: sticky;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 100;
+    }
 
 
 //#ffd100
@@ -106,7 +161,7 @@ export class MyAlert extends LitElement {
 
 .hidden-alert-container {
     background-color: var(--none-bg-color);
-    width: auto;
+    width: 100%;
     border: black;
     display: flex;
     justify-content: center;
@@ -182,8 +237,8 @@ export class MyAlert extends LitElement {
     letter-spacing: 0.03rem; 
 }
 
-#sticky {
-    position: fixed;
+.sticky {
+    position: sticky;
     top: 0;
     width: 99.5%;
     z-index: 100;
@@ -194,24 +249,14 @@ export class MyAlert extends LitElement {
     `;
     }
 
-    openChanged(e) {
-        console.log(e.newState);
-        if (e.newState === "open") {
-            this.fancy = true;
-        }
-        else {
-            this.fancy = false;
-        }
-    }
-
     toggleAlert() {
         this.isOpen = !this.isOpen;
         if (this.isOpen) {
             localStorage.removeItem('alertIsOpen');
-            this.classList.add('sticky');
+            this.sticky = true;
         } else {
             localStorage.setItem('alertIsOpen', 'false');
-            this.classList.add('sticky');
+            this.sticky = false;
         }
     }
 
@@ -224,13 +269,19 @@ export class MyAlert extends LitElement {
     }
 
     openAlert() {
-        this.isOpen = true;
         this.shadowRoot.querySelector('.close-btn').focus();
     }
 
+    //     if(this.sticky == true) {
+    //     this.classList.add('sticky');
+    // }
+    //     else {
+    //     this.classList.remove('sticky');
+    // }
+
     hiddenAlertContent() {
         return html`
-        <div class="hidden-alert-container" id="sticky">
+        <div class="hidden-alert-container">
             <div class="date">
                 <h3>${this.date}</h3>
             </div>
@@ -282,7 +333,7 @@ export class MyAlert extends LitElement {
             isOpen: { type: String },
             date: { type: String },
             alertColor: { type: String },
-            sticky: { type: Boolean },
+            sticky: { type: Boolean, reflect: true },
             status: { tyep: String },
             fancy: { type: Boolean, reflect: true },
         };
