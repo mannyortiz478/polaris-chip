@@ -14,7 +14,7 @@
       margin: 0;
       padding: 0;
       font-family: sans-serif;
-      background-color: #ededed;
+      background-color: var(--ddd-theme-default-potential0);
     }
 
     .duplicate {
@@ -66,10 +66,13 @@
       display: block;
     }
   </style>
+  
+  <party-ui></party-ui>
   <title>polaris-chip / my-card</title>
 </head>
 
 <body>
+  <haxcms-party users="user1 user2 user3"></haxcms-party>
   <campus-alert date="December 20, 2023" status="none" sticky>
     Occaecat laboris incididunt ea labore quis in qui commodo velit cillum et commodo. Dolore consectetur eu eu
     reprehenderit anim fugiat in nostrud anim magna enim nisi. Mollit est incididunt sint aliqua duis. Deserunt ut velit
@@ -99,6 +102,8 @@
     esse est sunt incididunt ullamco.
   </campus-alert>
   <h1>polaris-chip</h1>
+  <haxcms-party users="user1 user2 user3"></haxcms-party>
+
   <!-- this is going to do whatever the tag's defaults are -->
   <polaris-chip title="news record" link="https://psu.edu"></polaris-chip>
   <polaris-chip title="faculty and staff"></polaris-chip>
@@ -148,6 +153,7 @@
   <script type="module" src="./src/my-card.js"></script>
   <script type="module" src="./src/counter-app.js"></script>
   <script type="module" src="./src/alert.js"></script>
+  <script type="module" src="./src/haxcms-party.js"></script>
 
   <script>
     document.querySelector('.duplicate').addEventListener('click', function (event) {
