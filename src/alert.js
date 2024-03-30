@@ -330,7 +330,7 @@ export class MyAlert extends LitElement {
 
     static get properties() {
         return {
-            isOpen: { type: String },
+
             date: { type: String },
             alertColor: { type: String },
             sticky: { type: Boolean, reflect: true },

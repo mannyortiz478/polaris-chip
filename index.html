@@ -6,15 +6,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="Description" content="Boilerplate for polaris chip">
   <base href="/">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
 
   <style>
-    :root,
-    html,
-    body {
+    :host body {
       margin: 0;
       padding: 0;
       font-family: sans-serif;
-      background-color: var(--ddd-theme-default-potential0);
+    }
+
+    body{
+      background-image: url("haxscreenshot.png");
     }
 
     .duplicate {
@@ -65,15 +68,52 @@
       margin: 16px;
       display: block;
     }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+
+    .party-start {
+      background-color: transparent;
+      color: var(--ddd-theme-default-coalyGray);
+      opacity: var(--simple-toolbar-button-opacity, 1);
+      text-transform: unset;
+      font-family: inherit;
+      font-size: inherit;
+      border: 1px solid white;
+      border-radius: var(--ddd-radius-sm);
+      padding: 5px 10px;
+      margin: 12px;
+      cursor: pointer;
+      height: 100%;
+      position: relative;
+      top: -600px;
+      left: 100px;
+      z-index: 9999;
+      display: block;
+      height: fit-content;
+      width: fit-content;
+      justify-content: center;
+      align-items: left;
+      pointer-events: all;
+    }
   </style>
-  
-  <party-ui></party-ui>
+
   <title>polaris-chip / my-card</title>
 </head>
 
 <body>
-  <haxcms-party users="user1 user2 user3"></haxcms-party>
-  <campus-alert date="December 20, 2023" status="none" sticky>
+  <!-- <img src="./src/Haxscreenshot.png"> -->
+
+  <party-ui></party-ui>
+
+  <!-- <campus-alert date="December 20, 2023" status="none" sticky>
     Occaecat laboris incididunt ea labore quis in qui commodo velit cillum et commodo. Dolore consectetur eu eu
     reprehenderit anim fugiat in nostrud anim magna enim nisi. Mollit est incididunt sint aliqua duis. Deserunt ut velit
     deserunt fugiat eiusmod. Do incididunt laborum aliqua cupidatat adipisicing fugiat reprehenderit cillum id. Minim
@@ -105,12 +145,12 @@
   <haxcms-party users="user1 user2 user3"></haxcms-party>
 
   <!-- this is going to do whatever the tag's defaults are -->
-  <polaris-chip title="news record" link="https://psu.edu"></polaris-chip>
+  <!-- <polaris-chip title="news record" link="https://psu.edu"></polaris-chip>
   <polaris-chip title="faculty and staff"></polaris-chip>
   <polaris-chip title="sports"></polaris-chip>
   <polaris-chip title="Grants and Donations"></polaris-chip>
   <!-- this is going to take the tag and change the title -->
-  <polaris-chip title="Cool stuff"></polaris-chip>
+  <!-- <polaris-chip title="Cool stuff"></polaris-chip>
 
   <h1>my-card</h1>
   <h1 class=title>Card Changing App</h1>
@@ -146,7 +186,7 @@
   </div>
 
   <counter-app number=10 min=5 max=40></counter-app>
-  <counter-app number=2 min=1 max=40></counter-app>
+  <counter-app number=2 min=1 max=40></counter-app> -->
 
   <!-- this is what is bringing in the definition for this tag -->
   <script type="module" src="./src/polaris-chip.js"></script>
@@ -155,7 +195,7 @@
   <script type="module" src="./src/alert.js"></script>
   <script type="module" src="./src/haxcms-party.js"></script>
 
-  <script>
+  <!-- <script>
     document.querySelector('.duplicate').addEventListener('click', function (event) {
       if (document.querySelectorAll('my-card').length < 10) {
         const newCard = document.querySelector('my-card').cloneNode(true);
@@ -210,7 +250,7 @@
           });
         });
     });
-  </script>
+  </script> -->
 </body>
 
 </html>

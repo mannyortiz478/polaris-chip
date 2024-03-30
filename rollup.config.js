@@ -6,6 +6,7 @@ import { terser } from 'rollup-plugin-terser';
 import { generateSW } from 'rollup-plugin-workbox';
 import path from 'path';
 
+
 export default {
   input: 'index.html',
   output: {
@@ -31,6 +32,13 @@ export default {
     /** Bundle assets references via import.meta.url */
     importMetaAssets(),
     /** Compile JS to a lower language target */
+    copy({
+      targets: [
+        { src: 'src/index.html', dest: 'dist/public' },
+        { src: ['assets/fonts/arial.woff', 'assets/fonts/arial.woff2'], dest: 'dist/public/fonts' },
+        { src: 'assets/images/**/*', dest: 'dist/public/images' }
+      ]
+    }),
     babel({
       babelHelpers: 'bundled',
       presets: [
