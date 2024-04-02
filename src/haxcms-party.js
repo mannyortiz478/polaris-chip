@@ -14,13 +14,8 @@ export class haxcmsParty extends DDD {
     super();
     this.users = [];
   }
-  connectedCallback() {
-    super.connectedCallback();
-    if (!this.users) {
-      this.users = []; // Initialize users array if not already initialized
-    }
-  }
 
+  //Styling components in the party-ui modal
   static get styles() {
     return css`
         :host {
@@ -179,49 +174,56 @@ export class haxcmsParty extends DDD {
     `;
   }
 
-
+  //Method to toggle the party-ui modal
   toggleAlert() {
-    const modal = this.shadowRoot.querySelector('.party-ui-modal');
+    const modal = this.shadowRoot.querySelector('.party-ui-modal'); //Getting the modal element
     this.isOpen = !this.isOpen;
-    if (this.isOpen) {
+    if (this.isOpen) { //Checking if the modal is open
       localStorage.removeItem('modalIsOpen', 'true');
       modal.style.display = 'none';
     } else {
       localStorage.setItem('modalIsOpen', 'false');
+      modal.style.display = 'block';
     }
   }
 
+  //Method used to handle event key press
   handleKeyPress(event) {
-    if (event.key === 'Enter') {
-      this.addUser();
+    if (event.key === 'Enter') { 
+      this.addUser(); //When the user presses the enter button a new user is added
     }
   }
 
+  //Method used to add user
   addUser() {
-    const inputElement = this.shadowRoot.querySelector('.input');
-    if (!inputElement) {
+    const inputElement = this.shadowRoot.querySelector('.input'); 
+    if (!inputElement) { //Checking if the input element exists
       console.warn('There is no input');
       return;
     }
 
     const userInput = inputElement.value;
-    if (!userInput) {
+    if (!userInput) { //Checking if the user typed something
       console.warn('Input is empty.');
       return;
     }
 
+    //REGEX validating username
     const checkUsername = /^[a-z0-9]{2,8}$/;
+    //Checks if username matches the pattern 
     if (!checkUsername.test(userInput)) {
-      console.warn('Username does not meet the requirements.');
+      console.warn('Username does not meet the requirements.'); 
       alert(`Username does not meet the requirements.`)
       return;
     }
 
+    //Checks if the username already exits in the party
     if (this.users.includes(userInput)) {
       alert('User already exists in the party.')
       return;
     }
 
+    //Add user to array and clearing input
     this.users.push(userInput);
     inputElement.value = '';
     this.requestUpdate();
@@ -237,7 +239,9 @@ export class haxcmsParty extends DDD {
 
     partyUiUsersScroll.innerHTML = ''; // Clear the container
 
+    //Iterates through the array
     this.users.map(user => {
+      //Creating username and adding class to array
       const newUserContainer = document.createElement('div');
       newUserContainer.classList.add('partyui-user-container');
       newUserContainer.innerHTML = `
@@ -247,17 +251,19 @@ export class haxcmsParty extends DDD {
               <button class="user-delete-btn">Delete</button>
             </div>
         `;
+      //Adding it the scroll container class, so the user can scroll through the characters
       partyUiUsersScroll.appendChild(newUserContainer);
 
       console.log('New user container created for:', user);
-
+      
+      //Adding an event listener for the delete button
       const deleteButton = newUserContainer.querySelector('.user-delete-btn');
       deleteButton.addEventListener('click', this.deleteUser.bind(this));
     });
   }
 
 
-
+  //Method for deleting a user in the party
   deleteUser(event) {
     // Get the username associated with the delete button clicked
     const username = event.target.parentNode.previousElementSibling.innerText;
@@ -270,7 +276,8 @@ export class haxcmsParty extends DDD {
 
     // Remove the user container from the display
     event.target.parentNode.parentNode.remove();
-    this.shadowRoot.querySelector('#sound2').play();
+
+    this.shadowRoot.querySelector('#sound2').play(); //Fart sound
 
     console.log('User deleted:', username);
     console.log('Updated users array:', this.users);
@@ -287,6 +294,7 @@ export class haxcmsParty extends DDD {
         `
   }
 
+  //Save Party button function
   saveParty() {
     const namesString = this.users.join(', ');
     console.log('Party saved. Users:', this.users);
@@ -300,7 +308,7 @@ export class haxcmsParty extends DDD {
     <audio id="sound" src="coin.mp3"></audio>
     <audio id="sound2" src="fart.mp3"></audio>
     <div class="party-start">
-    <a href="#" role="button" class="random-btn">Start a Party</a>
+    <button role="button" class="random-btn" @click="${this.toggleAlert}">Start a Party</button>
   </div>
     <div class="party-ui">
       <confetti-container id="confetti">
@@ -323,10 +331,11 @@ export class haxcmsParty extends DDD {
         <div class="party-ui-users-scroll">
           <!-- Sample person -->
           <div class="partyui-user-container">
+            <!-- Sample div container of a user -->
             <rpg-character seed="svb4647"></rpg-character>
             <div>sample</div>
             <div>
-              <button class="user-delete-btn" @click=${this.deleteUser}>Delete</button>
+              <button class="user-delete-btn" @click=${this.deleteUser}>Remove</button>
             </div>
             
         </div>
