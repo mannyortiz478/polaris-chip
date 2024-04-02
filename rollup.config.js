@@ -1,3 +1,4 @@
+import copy from 'rollup-plugin-copy';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import babel from '@rollup/plugin-babel';
 import html from '@web/rollup-plugin-html';
@@ -24,6 +25,18 @@ export default {
       minify: true,
       injectServiceWorker: true,
       serviceWorkerPath: 'dist/sw.js',
+    }),
+    copy({
+      targets: [
+        {
+          src: 'node_modules/@lrnwebcomponents/rpg-character/lib',
+          dest: 'dist',
+        },
+        {
+          src: 'node_modules/@lrnwebcomponents/simple-icon/lib/svgs',
+          dest: 'dist',
+        },
+      ],
     }),
     /** Resolve bare module imports */
     nodeResolve(),

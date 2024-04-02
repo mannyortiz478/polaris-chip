@@ -171,6 +171,17 @@ export class haxcmsParty extends DDD {
         padding: 5px 10px;
         cursor: pointer;
       }
+      .random-btn {
+        margin-left: 100px;
+        background-color: var(--ddd-theme-default-skyBlue);
+        color: white;
+        font-family: "Press Start 2P", sans-serif;
+        font-size: 10px;
+        border: 1px solid white;
+        border-radius: var(--ddd-radius-sm);
+        padding: 5px 10px;
+        cursor: pointer;
+      }
     `;
   }
 
@@ -186,6 +197,7 @@ export class haxcmsParty extends DDD {
       modal.style.display = 'block';
     }
   }
+
 
   //Method used to handle event key press
   handleKeyPress(event) {
