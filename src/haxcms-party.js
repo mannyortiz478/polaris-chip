@@ -7,7 +7,7 @@ import "@lrnwebcomponents/multiple-choice/lib/confetti-container.js";
 export class haxcmsParty extends DDD {
 
   static get tag() {
-    return 'party-ui';
+    return 'haxcms-party-ui';
   }
 
   constructor() {
@@ -90,7 +90,8 @@ export class haxcmsParty extends DDD {
         transition: border-color 0.3s ease;  
         margin: 10px 0px 20px 0px;
       }
-       svg {
+      /* This is x button to close the modal */
+       svg { 
         background-color: transparent;
         position: absolute;
         top: 0;
@@ -138,7 +139,7 @@ export class haxcmsParty extends DDD {
         cursor: pointer;
       }
 
-      .addBTN:hover, .removeBTN:hover, .saveBTN:hover {
+      .addBTN:hover, .removeBTN:hover, .saveBTN:hover, .random-btn:hover {
         border-color: var(--ddd-theme-default-pughBlue);
         transform: scale(1.1);
         transition: 0.2s ease-in-out
@@ -171,7 +172,7 @@ export class haxcmsParty extends DDD {
         padding: 5px 10px;
         cursor: pointer;
       }
-      .random-btn {
+      .start-party-btn {
         margin-left: 100px;
         background-color: var(--ddd-theme-default-skyBlue);
         color: white;
@@ -182,6 +183,8 @@ export class haxcmsParty extends DDD {
         padding: 5px 10px;
         cursor: pointer;
       }
+
+      @media screen and (max-width: 800px) and (min-width: 500px){ .btn { display: none; } }
     `;
   }
 
@@ -203,6 +206,9 @@ export class haxcmsParty extends DDD {
   handleKeyPress(event) {
     if (event.key === 'Enter') { 
       this.addUser(); //When the user presses the enter button a new user is added
+    }
+    else if (event.key === 'delete'){
+      this.deleteUser();
     }
   }
 
@@ -295,17 +301,6 @@ export class haxcmsParty extends DDD {
     console.log('Updated users array:', this.users);
   }
 
-  invalidAlert() {
-    return html`
-            <div class="modalView" id="modalView">
-            <div id="modalView__closeBtn"></div>
-            <div class="modalView__content centered">
-                <p>Does not meet requirements</p>
-            </div>
-            </div>
-        `
-  }
-
   //Save Party button function
   saveParty() {
     const namesString = this.users.join(', ');
@@ -320,7 +315,7 @@ export class haxcmsParty extends DDD {
     <audio id="sound" src="coin.mp3"></audio>
     <audio id="sound2" src="fart.mp3"></audio>
     <div class="party-start">
-    <button role="button" class="random-btn" @click="${this.toggleAlert}">Start a Party</button>
+    <button role="button" class="start-party-btn" @click="${this.toggleAlert}">Start a Party</button>
   </div>
     <div class="party-ui">
       <confetti-container id="confetti">
@@ -343,7 +338,7 @@ export class haxcmsParty extends DDD {
         <div class="party-ui-users-scroll">
           <!-- Sample person -->
           <div class="partyui-user-container">
-            <!-- Sample div container of a user -->
+            <!-- Sample div container of a user - to give the user a preview of how the user is going to appear on the modal -->
             <rpg-character seed="svb4647"></rpg-character>
             <div>sample</div>
             <div>
@@ -353,8 +348,8 @@ export class haxcmsParty extends DDD {
         </div>
 
       </div>
-      <!-- <button class="removeBTN" @click=${this.deleteUser}>Remove User</button> -->
-      <button class="saveBTN" @click=${this.saveParty}>Save Party!</button>
+      <!-- Saves Array of party users -->
+      <button class="saveBTN" @click=${this.saveParty}>Save Party!</button> 
   </confetti-container>
     </div>
     `;
@@ -365,6 +360,7 @@ export class haxcmsParty extends DDD {
       users: { type: Array }
     };
   }
+  //function to generate the confetti 
   makeItRain() {
     import("@lrnwebcomponents/multiple-choice/lib/confetti-container.js").then(
       (module) => {
